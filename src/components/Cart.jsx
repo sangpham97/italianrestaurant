@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { AppContext, useGlobalContext } from '../context/GlobalContext'
@@ -16,8 +15,6 @@ export default function Cart() {
     checkOut,
   } = useGlobalContext(AppContext)
   const { user } = useContext(AuthContext)
-
-  const itemPrices = cartItems?.reduce((a, c) => a + c.price * c.qty, 0)
 
   return (
     <>
@@ -92,20 +89,34 @@ export default function Cart() {
                       <>
                         <div className='flex justify-between text-base font-medium text-gray-900'>
                           <p>Total</p>
-                          <p>${itemPrices.toFixed(2)}</p>
+                          {cartItems && (
+                            <p>
+                              $
+                              {cartItems
+                                .reduce((a, c) => a + c.price * c.qty, 0)
+                                .toFixed(2)}
+                            </p>
+                          )}
                         </div>
                         <p className='mt-0.5 text-sm text-gray-500'>
                           Shipping and taxes calculated at checkout.
                         </p>
                         <div className='mt-6'>
-                          <a
-                            onClick={() =>
-                              checkOut(user._id, itemPrices.toFixed(2))
-                            }
-                            className='flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer'
-                          >
-                            Checkout
-                          </a>
+                          {cartItems && (
+                            <a
+                              onClick={() =>
+                                checkOut(
+                                  user._id,
+                                  cartItems
+                                    .reduce((a, c) => a + c.price * c.qty, 0)
+                                    .toFixed(2)
+                                )
+                              }
+                              className='flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer'
+                            >
+                              Checkout
+                            </a>
+                          )}
                         </div>
                       </>
                     )}
