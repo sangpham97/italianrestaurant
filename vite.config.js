@@ -9,6 +9,8 @@ export default defineConfig({
       '/api': {
         target: 'https://restaurantnodejs.herokuapp.com',
         changeOrigin: true,
+        secure: false,
+        ws: true,
       },
     },
   },
