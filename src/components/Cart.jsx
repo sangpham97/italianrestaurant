@@ -17,7 +17,7 @@ export default function Cart() {
   } = useGlobalContext(AppContext)
   const { user } = useContext(AuthContext)
 
-  const itemPrices = cartItems.reduce((a, c) => a + c.price * c.qty, 0)
+  const itemPrices = cartItems?.reduce((a, c) => a + c.price * c.qty, 0)
 
   return (
     <>
