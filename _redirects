@@ -1,3 +1,0 @@
-/api/_ https://restaurantnodejs.herokuapp.com/:splat 200
-/_ /index.html 200
-/\* /index.html 404
